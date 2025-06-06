@@ -1,0 +1,79 @@
+mport java.util.Scanner;
+class Node {
+    int data;
+    Node next;
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+class Queue {
+    Node front, rear;
+    public void enqueue(int data) {
+        Node newNode = new Node(data);
+        if (rear == null) {
+            front = rear = newNode; 
+        } else {
+            rear.next = newNode;
+            rear = newNode;
+        }
+        System.out.println(data + " enqueued");
+    }
+    public void dequeue() {
+        if (front == null) {
+            System.out.println("Queue Underflow");
+            return;
+        }
+        System.out.println(front.data + " dequeued");
+        front = front.next;
+        if (front == null) { 
+            rear = null;
+        }
+    }
+    public void display() {
+        if (front == null) {
+            System.out.println("Queue is empty");
+            return;
+        }
+        System.out.print("Queue: ");
+        Node temp = front;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Queue q = new Queue();
+
+        while (true) {
+            System.out.println("1. Enqueue");
+            System.out.println("2. Dequeue");
+            System.out.println("3. Display");
+            System.out.println("4. Exit");
+            System.out.print("Choose operation: ");
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter value to enqueue: ");
+                    int val = sc.nextInt();
+                    q.enqueue(val);
+                    break;
+                case 2:
+                    q.dequeue();
+                    break;
+                case 3:
+                    q.display();
+                    break;
+                case 4:
+                    System.out.println("Exiting program...");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
